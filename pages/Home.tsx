@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useCallback } from 'react';
 import { Link } from 'react-router-dom';
 import { PRODUCTS, IMAGES } from '../constants';
+import { updateMetaTags } from '../utils/seo';
 
 // Hoist static JSX outside component (Vercel rule: rendering-hoist-jsx)
 // This prevents recreation on every render
@@ -49,8 +50,22 @@ const Home: React.FC = () => {
     return () => clearInterval(timer);
   }, [nextSlide]);
 
+  // Update meta tags for SEO
+  useEffect(() => {
+    updateMetaTags({
+      title: 'Pocion Fire | Luxury Handcrafted Perfumes & Fragrances',
+      description: 'Discover exclusive luxury perfumes from Pocion Fire. Handcrafted fragrances including Midnight Flame, Crimson Essence, Arctic Hearth and more. Premium artisanal perfumery.',
+      canonical: 'https://pociónfire.com/',
+      ogImage: IMAGES.hero1,
+      twitterImage: IMAGES.hero1,
+    });
+  }, []);
+
   return (
     <div className="w-full">
+      {/* Hidden H1 for SEO - only one H1 per page */}
+      <h1 className="sr-only">Pocion Fire - Luxury Handcrafted Perfumes</h1>
+
       {/* Hero Carousel */}
       <section className="relative h-screen w-full overflow-hidden bg-background-dark group/carousel">
         {/* Navigation Arrows */}
@@ -68,9 +83,9 @@ const Home: React.FC = () => {
           >
             {/* Background Image & Overlay */}
             <div className="absolute inset-0">
-               <img 
-                 src={slide.image} 
-                 alt="Background" 
+               <img
+                 src={slide.image}
+                 alt={`${slide.title} ${slide.subtitle} - luxury perfume background`}
                  className={`w-full h-full object-cover transition-transform duration-[10000ms] ease-linear ${index === currentSlide ? 'scale-110' : 'scale-100'}`}
                />
                <div className="absolute inset-0 bg-gradient-to-t from-background-dark via-background-dark/30 to-background-dark/60"></div>
@@ -84,10 +99,10 @@ const Home: React.FC = () => {
                   <div className="inline-block px-4 py-2 bg-white/5 backdrop-blur-md border border-white/10 mb-8 animate-fade-in">
                     <p className="font-brand text-primary text-[10px] tracking-[0.4em] uppercase font-bold">{slide.accent}</p>
                   </div>
-                  <h1 className="font-display text-5xl md:text-7xl lg:text-8xl leading-[0.9] text-white mb-6 tracking-tight text-glow animate-slide-up">
-                    {slide.title} <br/> 
+                  <h2 className="font-display text-5xl md:text-7xl lg:text-8xl leading-[0.9] text-white mb-6 tracking-tight text-glow animate-slide-up">
+                    {slide.title} <br/>
                     <span className="italic font-serif font-light text-silver opacity-80">{slide.subtitle}</span>
-                  </h1>
+                  </h2>
                   <p className="text-lg text-white/70 max-w-lg mb-10 leading-relaxed font-light animate-fade-in animation-delay-300">
                     {slide.description}
                   </p>

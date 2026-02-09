@@ -1,0 +1,8 @@
+# Pocion Fire - Robots.txt
+User-agent: *
+Allow: /
+Disallow: /admin
+Disallow: /api
+
+# Sitemap
+Sitemap: https://pociónfire.com/sitemap.xml

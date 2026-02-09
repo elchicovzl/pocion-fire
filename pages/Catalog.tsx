@@ -1,9 +1,19 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { PRODUCTS } from '../constants';
 import ProductCard from '../components/ProductCard';
+import { updateMetaTags } from '../utils/seo';
 
 const Catalog: React.FC = () => {
+  // Update meta tags for SEO
+  useEffect(() => {
+    updateMetaTags({
+      title: 'Perfume Catalog - All Fragrances | Pocion Fire',
+      description: 'Browse our complete collection of 11 exclusive luxury fragrances. From smoky Midnight Flame to fresh Arctic Hearth. Premium eau de parfum collection.',
+      canonical: 'https://pociónfire.com/catalog',
+    });
+  }, []);
+
   return (
     <div className="pt-20 pb-20 bg-background-light dark:bg-background-dark min-h-screen">
       

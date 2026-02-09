@@ -1,14 +1,112 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { useParams, Link } from 'react-router-dom';
 import { PRODUCTS, IMAGES } from '../constants';
+import { updateMetaTags } from '../utils/seo';
 
 const ProductDetail: React.FC = () => {
   const { id } = useParams<{ id: string }>();
   // Default to Midnight Flame if not found, for demo purposes
   const product = PRODUCTS.find(p => p.id === id) || PRODUCTS[0];
-  
+
   // Use high res detail hero image for midnight flame specifically, else product image
   const heroImage = product.id === 'midnight-flame' ? IMAGES.detailHero : product.image;
+
+  // Update meta tags and add Product + Breadcrumb schema
+  useEffect(() => {
+    // Update meta tags
+    updateMetaTags({
+      title: `${product.name} - ${product.tagline} | Pocion Fire`,
+      description: `${product.description} - $${product.price.toFixed(2)} | Luxury eau de parfum from Pocion Fire. ${product.notes ? 'Notes: ' + product.notes.top : ''}`,
+      canonical: `https://pociónfire.com/product/${product.id}`,
+      ogImage: product.image,
+      twitterImage: product.image,
+    });
+
+    // Generate Product schema
+    const productSchema = {
+      "@context": "https://schema.org",
+      "@type": "Product",
+      "name": product.name,
+      "description": product.description,
+      "image": product.image,
+      "brand": {
+        "@type": "Brand",
+        "name": "Pocion Fire"
+      },
+      "offers": {
+        "@type": "Offer",
+        "url": `https://pociónfire.com/product/${product.id}`,
+        "priceCurrency": "USD",
+        "price": product.price.toFixed(2),
+        "availability": "https://schema.org/InStock",
+        "seller": {
+          "@type": "Organization",
+          "name": "Pocion Fire"
+        }
+      },
+      ...(product.notes && {
+        "additionalProperty": [
+          {
+            "@type": "PropertyValue",
+            "name": "Top Notes",
+            "value": product.notes.top
+          },
+          {
+            "@type": "PropertyValue",
+            "name": "Heart Notes",
+            "value": product.notes.heart
+          },
+          {
+            "@type": "PropertyValue",
+            "name": "Base Notes",
+            "value": product.notes.base
+          }
+        ]
+      })
+    };
+
+    // Generate Breadcrumb schema
+    const breadcrumbSchema = {
+      "@context": "https://schema.org",
+      "@type": "BreadcrumbList",
+      "itemListElement": [
+        {
+          "@type": "ListItem",
+          "position": 1,
+          "name": "Home",
+          "item": "https://pociónfire.com/"
+        },
+        {
+          "@type": "ListItem",
+          "position": 2,
+          "name": "Catalog",
+          "item": "https://pociónfire.com/catalog"
+        },
+        {
+          "@type": "ListItem",
+          "position": 3,
+          "name": product.name,
+          "item": `https://pociónfire.com/product/${product.id}`
+        }
+      ]
+    };
+
+    // Add schemas to page head
+    const productScript = document.createElement('script');
+    productScript.type = 'application/ld+json';
+    productScript.text = JSON.stringify(productSchema);
+    document.head.appendChild(productScript);
+
+    const breadcrumbScript = document.createElement('script');
+    breadcrumbScript.type = 'application/ld+json';
+    breadcrumbScript.text = JSON.stringify(breadcrumbSchema);
+    document.head.appendChild(breadcrumbScript);
+
+    return () => {
+      document.head.removeChild(productScript);
+      document.head.removeChild(breadcrumbScript);
+    };
+  }, [product.id]);
 
   return (
     <div className="min-h-screen bg-background-dark text-slate-100 flex flex-col pt-20">
