@@ -1,6 +1,7 @@
 import React, { useState, useEffect, memo } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import SearchModal from './SearchModal';
+import MobileMenu from './MobileMenu';
 
 // Extract nav items as constant (optimization: prevent recreation on every render)
 const NAV_ITEMS = [
@@ -13,6 +14,7 @@ const NAV_ITEMS = [
 const Header: React.FC = () => {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isSearchOpen, setIsSearchOpen] = useState(false);
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const location = useLocation();
 
   useEffect(() => {
@@ -67,7 +69,8 @@ const Header: React.FC = () => {
         </nav>
 
         {/* Right Actions */}
-        <div className="flex items-center text-white z-50">
+        <div className="flex items-center gap-4 text-white z-50">
+          {/* Search Button */}
           <button
             onClick={() => setIsSearchOpen(true)}
             aria-label="Buscar"
@@ -75,11 +78,24 @@ const Header: React.FC = () => {
           >
             <span className="material-symbols-outlined text-xl">search</span>
           </button>
+
+          {/* Mobile Menu Button */}
+          <button
+            onClick={() => setIsMobileMenuOpen(true)}
+            aria-label="Menú"
+            className="lg:hidden flex items-center justify-center w-10 h-10
+              hover:text-primary transition-colors duration-300 -mr-2"
+          >
+            <span className="material-symbols-outlined text-2xl">menu</span>
+          </button>
         </div>
       </div>
 
       {/* Search Modal */}
       <SearchModal isOpen={isSearchOpen} onClose={() => setIsSearchOpen(false)} />
+
+      {/* Mobile Menu */}
+      <MobileMenu isOpen={isMobileMenuOpen} onClose={() => setIsMobileMenuOpen(false)} />
     </header>
   );
 };

@@ -2,6 +2,7 @@ import React, { useState, useEffect, useCallback } from 'react';
 import { Link } from 'react-router-dom';
 import { PRODUCTS, IMAGES } from '../constants';
 import { updateMetaTags } from '../utils/seo';
+import { generateWhatsAppProductURL } from '../utils/whatsapp';
 
 // Hoist static JSX outside component (Vercel rule: rendering-hoist-jsx)
 // This prevents recreation on every render
@@ -28,6 +29,9 @@ const HERO_SLIDES = [
 
 const Home: React.FC = () => {
   const [currentSlide, setCurrentSlide] = useState(0);
+
+  // WhatsApp number from environment variables
+  const whatsappNumber = process.env.NEXT_PUBLIC_WHATSAPP_NUMBER || '';
 
   // Memoize navigation functions (Vercel rule: rerender-dependencies)
   const nextSlide = useCallback(() => {
@@ -93,25 +97,33 @@ const Home: React.FC = () => {
             </div>
 
             {/* Content Container */}
-            <div className="container mx-auto px-6 lg:px-12 h-full flex flex-col md:flex-row items-center justify-center relative z-20 pt-20">
+            <div className="container mx-auto px-6 lg:px-12 h-full flex flex-col md:flex-row items-center justify-center relative z-20  pt-24 lg:pt-20">
                {/* Text Content */}
                <div className="w-full md:w-1/2 order-2 md:order-1 text-center md:text-left">
                   <div className="inline-block px-4 py-2 bg-white/5 backdrop-blur-md border border-white/10 mb-8 animate-fade-in">
                     <p className="font-brand text-primary text-[10px] tracking-[0.4em] uppercase font-bold">{slide.accent}</p>
                   </div>
-                  <h2 className="font-display text-5xl md:text-7xl lg:text-8xl leading-[0.9] text-white mb-6 tracking-tight text-glow animate-slide-up">
+                  <h2 className="font-display text-4xl sm:text-5xl md:text-7xl lg:text-8xl leading-[0.9] text-white mb-6 tracking-tight text-glow animate-slide-up">
                     {slide.title} <br/>
                     <span className="italic font-serif font-light text-silver opacity-80">{slide.subtitle}</span>
                   </h2>
                   <p className="text-lg text-white/70 max-w-lg mb-10 leading-relaxed font-light animate-fade-in animation-delay-300">
                     {slide.description}
                   </p>
-                  <div className="flex flex-col sm:flex-row space-y-4 sm:space-y-0 sm:space-x-6 justify-center md:justify-start animate-fade-in animation-delay-500">
-                    <Link to="/catalog" className="px-10 py-4 bg-primary text-white font-brand text-[10px] tracking-[0.3em] font-bold hover:bg-primary-dark transition-all text-center shadow-[0_0_20px_rgba(236,19,19,0.3)]">
-                      COMPRAR AHORA
-                    </Link>
-                    <Link to={`/product/${PRODUCTS[index].id}`} className="px-10 py-4 border border-white/30 text-white font-brand text-[10px] tracking-[0.3em] font-bold hover:bg-white/10 transition-all text-center backdrop-blur-sm">
-                      EXPLORAR FRAGANCIA
+                  <div className="flex flex-row gap-3 sm:gap-6 justify-center md:justify-start animate-fade-in animation-delay-500 mb-8">
+                    <a
+                      href={generateWhatsAppProductURL(PRODUCTS[index], whatsappNumber)}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="flex-1 sm:flex-none px-6 sm:px-10 py-4 bg-gradient-to-r from-primary to-primary-dark text-white font-brand text-[10px] tracking-[0.3em] font-bold hover:shadow-[0_0_25px_rgba(236,19,19,0.4)] transition-all text-center flex items-center justify-center gap-2 sm:gap-3"
+                    >
+                      <span className="hidden sm:inline">LO QUIERO</span>
+                      <span className="sm:hidden">QUIERO</span>
+                      <span className="material-symbols-outlined text-sm">send</span>
+                    </a>
+                    <Link to={`/product/${PRODUCTS[index].id}`} className="flex-1 sm:flex-none px-6 sm:px-10 py-4 border border-white/30 text-white font-brand text-[10px] tracking-[0.3em] font-bold hover:bg-white/10 transition-all text-center backdrop-blur-sm">
+                      <span className="hidden sm:inline">EXPLORAR FRAGANCIA</span>
+                      <span className="sm:hidden">EXPLORAR</span>
                     </Link>
                   </div>
                </div>
@@ -132,7 +144,7 @@ const Home: React.FC = () => {
         ))}
 
         {/* Slide Indicators */}
-        <div className="absolute bottom-12 left-1/2 -translate-x-1/2 flex items-center space-x-4 z-30">
+        <div className="absolute bottom-0 left-1/2 -translate-x-1/2 flex items-center space-x-4 z-30">
           {HERO_SLIDES.map((_, idx) => (
             <button
               key={idx}

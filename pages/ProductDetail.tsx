@@ -200,19 +200,16 @@ const ProductDetail: React.FC = () => {
              )}
 
              {/* Actions */}
-             <div className="flex flex-col sm:flex-row gap-5 mb-12">
+             <div className="mb-12">
                 <a
                    href={generateWhatsAppProductURL(product, whatsappNumber)}
                    target="_blank"
                    rel="noopener noreferrer"
-                   className="flex-1 bg-gradient-to-r from-primary to-primary-dark text-white py-5 rounded-sm font-brand text-[10px] font-bold uppercase tracking-[0.2em] hover:shadow-[0_0_25px_rgba(236,19,19,0.4)] transition-all duration-300 flex justify-center items-center gap-3"
+                   className="block bg-gradient-to-r from-primary to-primary-dark text-white py-5 rounded-sm font-brand text-[10px] font-bold uppercase tracking-[0.2em] hover:shadow-[0_0_25px_rgba(236,19,19,0.4)] transition-all duration-300 flex justify-center items-center gap-3"
                 >
                    <span>Lo Quiero</span>
                    <span className="material-symbols-outlined text-sm">send</span>
                 </a>
-                <button className="px-8 py-5 border border-white/10 text-white font-brand text-[10px] font-bold uppercase tracking-[0.2em] hover:bg-white/5 transition-colors">
-                   Lista de Deseos
-                </button>
              </div>
 
              {/* Footer Extra */}
