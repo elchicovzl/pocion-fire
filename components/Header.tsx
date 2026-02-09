@@ -1,5 +1,6 @@
 import React, { useState, useEffect, memo } from 'react';
 import { Link, useLocation } from 'react-router-dom';
+import SearchModal from './SearchModal';
 
 // Extract nav items as constant (optimization: prevent recreation on every render)
 const NAV_ITEMS = [
@@ -11,6 +12,7 @@ const NAV_ITEMS = [
 
 const Header: React.FC = () => {
   const [isScrolled, setIsScrolled] = useState(false);
+  const [isSearchOpen, setIsSearchOpen] = useState(false);
   const location = useLocation();
 
   useEffect(() => {
@@ -65,19 +67,19 @@ const Header: React.FC = () => {
         </nav>
 
         {/* Right Actions */}
-        <div className="flex items-center space-x-6 text-white z-50">
-          <button aria-label="Buscar" className="hover:text-primary transition-colors duration-300">
+        <div className="flex items-center text-white z-50">
+          <button
+            onClick={() => setIsSearchOpen(true)}
+            aria-label="Buscar"
+            className="hover:text-primary transition-colors duration-300"
+          >
             <span className="material-symbols-outlined text-xl">search</span>
-          </button>
-          <button aria-label="Carrito de Compras" className="hover:text-primary transition-colors duration-300 relative">
-            <span className="material-symbols-outlined text-xl">shopping_bag</span>
-            <span className="absolute -top-1.5 -right-1.5 bg-primary text-white text-[9px] w-4 h-4 rounded-full flex items-center justify-center font-bold shadow-lg shadow-primary/40">0</span>
-          </button>
-          <button aria-label="Cuenta" className="hover:text-primary transition-colors duration-300 hidden sm:block">
-            <span className="material-symbols-outlined text-xl">account_circle</span>
           </button>
         </div>
       </div>
+
+      {/* Search Modal */}
+      <SearchModal isOpen={isSearchOpen} onClose={() => setIsSearchOpen(false)} />
     </header>
   );
 };

@@ -184,7 +184,7 @@ const Home: React.FC = () => {
         </div>
       </section>
 
-      {/* Private Reserve / Bespoke Section */}
+      {/* About Us Section */}
       <section className="py-32 bg-surface-dark relative overflow-hidden">
          {/* Abstract BG */}
          <div className="absolute inset-0 opacity-10 pointer-events-none">
@@ -192,11 +192,11 @@ const Home: React.FC = () => {
          </div>
 
          <div className="container mx-auto px-6 lg:px-12 grid md:grid-cols-2 gap-20 items-center relative z-10">
-            <div className="relative group cursor-pointer">
+            <div className="relative group">
               <div className="aspect-square bg-[#0c0c0c] border border-white/5 relative z-10 p-16 flex items-center justify-center transition-all duration-500 group-hover:border-primary/30">
-                <img src={IMAGES.monogram} alt="Monogram" className="w-2/3 opacity-20 grayscale brightness-200 group-hover:opacity-30 transition-opacity duration-500" />
+                <img src={IMAGES.monogram} alt="Pocion Fire Monogram" className="w-2/3 opacity-20 grayscale brightness-200 group-hover:opacity-30 transition-opacity duration-500" />
                 <div className="absolute inset-0 flex items-center justify-center">
-                   <p className="font-display italic text-6xl md:text-7xl text-white/30 select-none group-hover:text-white/50 transition-colors duration-500">Reserva Privada</p>
+                   <p className="font-display italic text-6xl md:text-7xl text-white/30 select-none group-hover:text-white/50 transition-colors duration-500">Pocion Fire</p>
                 </div>
               </div>
               {/* Decorative Border Box */}
@@ -204,16 +204,19 @@ const Home: React.FC = () => {
             </div>
 
             <div>
-               <span className="font-brand text-[10px] tracking-[0.5em] text-primary uppercase font-bold block mb-6">Personalización Elite</span>
+               <span className="font-brand text-[10px] tracking-[0.5em] text-primary uppercase font-bold block mb-6">Nuestra Historia</span>
                <h2 className="font-display text-5xl md:text-6xl text-white uppercase leading-none mb-8">
-                 Tu Firma,<br/>
-                 <span className="text-transparent bg-clip-text bg-gradient-to-r from-white to-slate-500">Nuestra Llama.</span>
+                 El Arte de la<br/>
+                 <span className="text-transparent bg-clip-text bg-gradient-to-r from-white to-slate-500">Perfumería de Fuego.</span>
                </h2>
-               <p className="text-slate-400 font-light leading-relaxed mb-12 text-lg max-w-lg">
-                  Embarca en un viaje olfativo colaborativo con nuestros maestros perfumistas. Crea un aroma tan único como tu huella digital, alojado en una vasija de cristal de obsidiana hecha a mano.
+               <p className="text-slate-400 font-light leading-relaxed mb-6 text-lg max-w-lg">
+                  Pocion Fire nace de la fusión entre el poder elemental del fuego y el sofisticado arte de la perfumería francesa. Cada fragancia es una obra maestra artesanal que captura la esencia de la transformación.
                </p>
-               <Link to="#" className="inline-block px-12 py-5 border border-primary text-primary hover:bg-primary hover:text-white transition-all font-brand text-[10px] tracking-[0.3em] font-bold">
-                 CONSULTAR BESPOKE
+               <p className="text-slate-400 font-light leading-relaxed mb-12 text-lg max-w-lg">
+                  Nuestros maestros perfumistas trabajan con ingredientes raros y preciosos, destilando aromas que evocan desde la intensidad de una llama hasta la serenidad de sus brasas. Cada botella representa una experiencia olfativa única y memorable.
+               </p>
+               <Link to="/catalog" className="inline-block px-12 py-5 border border-primary text-primary hover:bg-primary hover:text-white transition-all font-brand text-[10px] tracking-[0.3em] font-bold">
+                 EXPLORAR COLECCIÓN
                </Link>
             </div>
          </div>

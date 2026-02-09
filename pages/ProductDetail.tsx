@@ -2,6 +2,7 @@ import React, { useEffect } from 'react';
 import { useParams, Link } from 'react-router-dom';
 import { PRODUCTS, IMAGES } from '../constants';
 import { updateMetaTags } from '../utils/seo';
+import { generateWhatsAppProductURL } from '../utils/whatsapp';
 
 const ProductDetail: React.FC = () => {
   const { id } = useParams<{ id: string }>();
@@ -10,6 +11,9 @@ const ProductDetail: React.FC = () => {
 
   // Use high res detail hero image for midnight flame specifically, else product image
   const heroImage = product.id === 'midnight-flame' ? IMAGES.detailHero : product.image;
+
+  // WhatsApp number from environment variables
+  const whatsappNumber = process.env.NEXT_PUBLIC_WHATSAPP_NUMBER || '';
 
   // Update meta tags and add Product + Breadcrumb schema
   useEffect(() => {
@@ -197,10 +201,15 @@ const ProductDetail: React.FC = () => {
 
              {/* Actions */}
              <div className="flex flex-col sm:flex-row gap-5 mb-12">
-                <button className="flex-1 bg-gradient-to-r from-primary to-primary-dark text-white py-5 rounded-sm font-brand text-[10px] font-bold uppercase tracking-[0.2em] hover:shadow-[0_0_25px_rgba(236,19,19,0.4)] transition-all duration-300 flex justify-center items-center gap-3">
-                   <span>Añadir al Carrito</span>
-                   <span className="material-symbols-outlined text-sm">arrow_forward</span>
-                </button>
+                <a
+                   href={generateWhatsAppProductURL(product, whatsappNumber)}
+                   target="_blank"
+                   rel="noopener noreferrer"
+                   className="flex-1 bg-gradient-to-r from-primary to-primary-dark text-white py-5 rounded-sm font-brand text-[10px] font-bold uppercase tracking-[0.2em] hover:shadow-[0_0_25px_rgba(236,19,19,0.4)] transition-all duration-300 flex justify-center items-center gap-3"
+                >
+                   <span>Lo Quiero</span>
+                   <span className="material-symbols-outlined text-sm">send</span>
+                </a>
                 <button className="px-8 py-5 border border-white/10 text-white font-brand text-[10px] font-bold uppercase tracking-[0.2em] hover:bg-white/5 transition-colors">
                    Lista de Deseos
                 </button>

@@ -6,12 +6,12 @@ const Footer: React.FC = () => {
     <footer className="bg-surface-dark py-20 border-t border-white/5 relative overflow-hidden">
       {/* Background Decor */}
       <div className="absolute top-0 left-1/2 -translate-x-1/2 w-full h-[1px] bg-gradient-to-r from-transparent via-primary/50 to-transparent opacity-30"></div>
-      
+
       <div className="container mx-auto px-6 lg:px-12 relative z-10">
         <div className="grid grid-cols-1 md:grid-cols-4 gap-16 mb-20">
-          
+
           {/* Brand Column */}
-          <div className="col-span-1">
+          <div className="col-span-2">
             <Link to="/" className="flex items-center mb-8 gap-3 group">
               <span className="material-symbols-outlined text-3xl text-primary transition-transform group-hover:rotate-12">local_fire_department</span>
               <div className="flex flex-col">
@@ -29,36 +29,18 @@ const Footer: React.FC = () => {
             <h4 className="font-brand text-[10px] tracking-[0.3em] uppercase mb-8 text-slate-500 font-bold">Navegación</h4>
             <ul className="space-y-4 text-xs font-light uppercase tracking-widest text-slate-300">
               <li><Link to="/catalog" className="hover:text-primary transition-colors">Catálogo</Link></li>
-              <li><Link to="#" className="hover:text-primary transition-colors">Tarjetas de Regalo</Link></li>
-              <li><Link to="#" className="hover:text-primary transition-colors">Tiendas</Link></li>
-              <li><Link to="#" className="hover:text-primary transition-colors">Revista</Link></li>
+              <li><Link to="#" className="hover:text-primary transition-colors">Nosotros</Link></li>
             </ul>
           </div>
 
           <div>
             <h4 className="font-brand text-[10px] tracking-[0.3em] uppercase mb-8 text-slate-500 font-bold">Atención al Cliente</h4>
             <ul className="space-y-4 text-xs font-light uppercase tracking-widest text-slate-300">
-              <li><Link to="#" className="hover:text-primary transition-colors">Envíos</Link></li>
-              <li><Link to="#" className="hover:text-primary transition-colors">Devoluciones</Link></li>
-              <li><Link to="#" className="hover:text-primary transition-colors">Privacidad</Link></li>
-              <li><Link to="#" className="hover:text-primary transition-colors">Contacto</Link></li>
+              <li><Link to="/shipping" className="hover:text-primary transition-colors">Envíos</Link></li>
+              <li><Link to="/returns" className="hover:text-primary transition-colors">Devoluciones</Link></li>
+              <li><Link to="/privacy" className="hover:text-primary transition-colors">Privacidad</Link></li>
+              <li><Link to="/contact" className="hover:text-primary transition-colors">Contacto</Link></li>
             </ul>
-          </div>
-
-          {/* Newsletter */}
-          <div>
-            <h4 className="font-brand text-[10px] tracking-[0.3em] uppercase mb-8 text-slate-500 font-bold">Boletín</h4>
-            <p className="text-[11px] text-slate-400 mb-6 uppercase tracking-[0.1em] font-light">Únete a nuestro círculo de conocedores.</p>
-            <div className="flex border-b border-white/20 pb-2 group focus-within:border-primary transition-colors">
-              <input
-                type="email"
-                placeholder="TU CORREO"
-                className="bg-transparent border-none focus:ring-0 text-sm w-full placeholder:text-slate-600 text-white uppercase tracking-widest p-0"
-              />
-              <button className="text-primary hover:text-white transition-colors transform hover:translate-x-1 duration-300">
-                <span className="material-symbols-outlined text-lg">arrow_forward</span>
-              </button>
-            </div>
           </div>
         </div>
 
